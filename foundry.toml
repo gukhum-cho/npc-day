@@ -1,7 +1,8 @@
 [profile.default]
-src = 'src'
+src = 'packages/hardhat/contracts'
 out = 'out'
-libs = ['lib']
+libs = ['lib', 'node_modules']
+test = 'forge-tests'
 
 solc_version = "0.8.17"
 optimizer = true
