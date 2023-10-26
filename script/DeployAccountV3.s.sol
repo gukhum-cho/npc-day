@@ -6,9 +6,9 @@ import "forge-std/Script.sol";
 import "@openzeppelin/contracts/utils/Create2.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
-import "../src/AccountGuardian.sol";
-import "../src/AccountV3Upgradable.sol";
-import "../src/AccountProxy.sol";
+import "../6551/account/src/AccountGuardian.sol";
+import "../6551/account/src/AccountV3Upgradable.sol";
+import "../6551/account/src/AccountProxy.sol";
 
 contract DeployAccountV3 is Script {
     function run() external {
