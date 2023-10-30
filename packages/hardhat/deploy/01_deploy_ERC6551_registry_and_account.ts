@@ -69,11 +69,20 @@ const deployERC6551: DeployFunction = async function (hre: HardhatRuntimeEnviron
     autoMine: true,
   });
 
+  const npcNftContract = await deploy("NPCNFT", {
+    from: deployer,
+    // Contract constructor arguments
+    log: true,
+    // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
+    // automatically mining the contract deployment transaction. There is no effect on live networks.
+    autoMine: true,
+  });
 
   console.log("multiCallContract", multiCallContract.address);
   console.log("registryContract", registryContract.address);
   console.log("guardianContract", guardianContract.address);
   console.log("accountV3Contract", accountV3Contract.address);
+  console.log("npcNftContract", npcNftContract.address);
 
 };
 

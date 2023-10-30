@@ -2,8 +2,22 @@ import Link from "next/link";
 import type { NextPage } from "next";
 import { BugAntIcon, MagnifyingGlassIcon, SparklesIcon } from "@heroicons/react/24/outline";
 import { MetaHeader } from "~~/components/MetaHeader";
+import { useScaffoldContractRead, useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
+import { useAccount } from "wagmi";
 
 const Home: NextPage = () => {
+  const { address } = useAccount();
+
+  const { writeAsync: mintNPC } = useScaffoldContractWrite({
+    contractName: "NPCNFT",
+    functionName: "mintNPC",
+    args: [address],
+    onBlockConfirmation: txnReceipt => {
+      console.log("📦 Transaction blockHash", txnReceipt.blockHash);
+    },
+  });
+
+
   return (
     <>
       <MetaHeader />
@@ -29,6 +43,29 @@ const Home: NextPage = () => {
               packages/hardhat/contracts
             </code>
           </p>
+
+          <button
+            className="py-2 px-16 mb-10 mt-3 bg-green-500 rounded baseline hover:bg-green-300 disabled:opacity-50"
+            onClick={() => mintNPC()}
+          >
+            Mint NPC
+          </button>
+        
+        {/*
+          <h1 className="text-center mb-5">
+            <span className="block text-2xl mb-2">Buy a NFT</span>
+          </h1>
+
+          <Image className="ml-60" src="/assets/chef.png" width={80} height={80} alt="Chef" />
+
+          <button
+            className="py-2 px-16 mb-1 mt-6 ml-52 bg-green-500 rounded baseline hover:bg-green-300 disabled:opacity-50"
+            onClick={() => mintNFT()}
+          >
+            Buy
+          </button>
+        */}
+
         </div>
 
         <div className="flex-grow bg-base-300 w-full mt-16 px-8 py-12">
