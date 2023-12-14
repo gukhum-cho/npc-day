@@ -4,6 +4,9 @@ import { BugAntIcon, MagnifyingGlassIcon, SparklesIcon } from "@heroicons/react/
 import { MetaHeader } from "~~/components/MetaHeader";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 import { useAccount } from "wagmi";
+import React, { useState, useEffect } from "react";
+import { NFTPicker } from "~~/components/spark";
+// import { Engine } from "~~/engine";
 
 const Home: NextPage = () => {
   const { address } = useAccount();
@@ -17,10 +20,65 @@ const Home: NextPage = () => {
     },
   });
 
+  // useEffect(() => {
+  //   async function doLoad(): Promise<void> {
+  //     Engine.load("");
+  //   }
+  //   doLoad();
+  // }, []);  
 
   return (
     <>
       <MetaHeader />
+      <div className="flex items-center flex-col flex-grow">
+
+        <div className="px-5">
+        {
+          address ? (
+            <NFTPicker address={address}></NFTPicker>
+
+          ) : (
+            <div>
+              Connect Wallet to see NFTs
+            </div>
+          )
+
+        }
+        </div>
+      
+      </div>
+
+      {/*
+
+      <div className="flex items-center flex-col flex-grow">
+        <div className="carousel rounded-box">
+          <div className="carousel-item">
+            <img src="https://daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.jpg" alt="Burger" />
+          </div> 
+          <div className="carousel-item">
+            <img src="https://daisyui.com/images/stock/photo-1565098772267-60af42b81ef2.jpg" alt="Burger" />
+          </div> 
+          <div className="carousel-item">
+            <img src="https://daisyui.com/images/stock/photo-1572635148818-ef6fd45eb394.jpg" alt="Burger" />
+          </div> 
+          <div className="carousel-item">
+            <img src="https://daisyui.com/images/stock/photo-1494253109108-2e30c049369b.jpg" alt="Burger" />
+          </div> 
+          <div className="carousel-item">
+            <img src="https://daisyui.com/images/stock/photo-1550258987-190a2d41a8ba.jpg" alt="Burger" />
+          </div> 
+          <div className="carousel-item">
+            <img src="https://daisyui.com/images/stock/photo-1559181567-c3190ca9959b.jpg" alt="Burger" />
+          </div> 
+          <div className="carousel-item">
+            <img src="https://daisyui.com/images/stock/photo-1601004890684-d8cbf643f5f2.jpg" alt="Burger" />
+          </div>
+        </div>      
+      </div>
+
+      */}
+
+      {/*
       <div className="flex items-center flex-col flex-grow pt-10">
         <div className="px-5">
           <h1 className="text-center mb-8">
@@ -64,7 +122,6 @@ const Home: NextPage = () => {
           >
             Buy
           </button>
-        */}
 
         </div>
 
@@ -103,6 +160,7 @@ const Home: NextPage = () => {
           </div>
         </div>
       </div>
+      */}
     </>
   );
 };
