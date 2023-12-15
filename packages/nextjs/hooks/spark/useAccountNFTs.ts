@@ -25,7 +25,9 @@ export function useAccountNFTs(address: string) {
 
       // if we have cached data, use that instead of fetching
       if (cachedNFTData[address]) {
-        console.log(`Using cached data for ${address}`);
+        const lastUpdated = cachedNFTData[address].validAt.blockTimestamp;
+
+        console.log(`Using cached data for ${address} from ${lastUpdated}`);
       }
 
       const fetchedNFTs = await alchemy.nft.getNftsForOwner(address);
