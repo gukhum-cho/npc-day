@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAccountNFTs } from "~~/hooks/spark";
-import { getTargetNetwork } from "~~/utils/scaffold-eth";
+// import { getTargetNetwork } from "~~/utils/scaffold-eth";
 
 type TNFTPickerProps = {
     address: string;
@@ -8,11 +8,14 @@ type TNFTPickerProps = {
 };
 
 /**
- * Display (ETH & USD) balance of an ETH address.
+ * Allow user to pick an NFT in their address, uses Alchemy
  */
 export const NFTPicker = ({ address, className = "" }: TNFTPickerProps) => {
-    const configuredNetwork = getTargetNetwork();
-    const { nfts, pageKey, setCurrentPage, loading, error } = useAccountNFTs(address);
+    // const configuredNetwork = getTargetNetwork();
+    const { nfts, 
+            // pageKey, 
+            // setCurrentPage, 
+            loading, error } = useAccountNFTs(address);
     const [searchTerm, setSearchTerm] = useState("");
 
     if (!address || loading || nfts === null) {
@@ -38,8 +41,22 @@ export const NFTPicker = ({ address, className = "" }: TNFTPickerProps) => {
         nft.name?.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
+    const NFTCard = ({ nft }: { nft: any }) => {
+        return (
+            <div
+                className={`border-2 border-gray-400 rounded-md px-2 flex flex-col items-center max-w-fit cursor-pointer`}
+                onClick={() => {
+                    console.log("clicked", nft);
+                }}
+            >
+                <div className="text-warning">{nft.name}</div>
+                <img src={String(nft.image.pngUrl)} alt={nft.name} className={`w-80 py-2`} />
+            </div>
+        );
+    }
+
     return (
-        <>
+        <div className={className}>
             <input
                 type="text"
                 placeholder="Search by name"
@@ -49,23 +66,13 @@ export const NFTPicker = ({ address, className = "" }: TNFTPickerProps) => {
 
             <div>NFTs found: {filteredNFTs?.length}</div>
 
-            {
-                filteredNFTs?.map((nft) => (
-                    <div>
-                        {nft.name}
-                        <img src={String(nft.image.pngUrl)} alt={nft.name} className={`w-80`}/>
-                    </div>
-                ))
-                /*
-                filteredNFTs?.map((nft) => (
-                <div key={nft.collection + "/" + nft.tokenId}>
-                    <img src={String(nft.image.pngUrl)} alt={nft.name} className={`w-80`}/>
-                    <div>{nft.name}</div>
-                    <div>{nft.description}</div>
-                </div>
-                ))
-                */
-            }
-        </>
+            <div className="flex flex-wrap justify-center mt-10">
+                {
+                    filteredNFTs?.map((nft) => (
+                        NFTCard({ nft })
+                    ))
+                }
+            </div>
+        </div>
     );
 };

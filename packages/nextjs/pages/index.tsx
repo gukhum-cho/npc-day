@@ -1,24 +1,25 @@
-import Link from "next/link";
 import type { NextPage } from "next";
-import { BugAntIcon, MagnifyingGlassIcon, SparklesIcon } from "@heroicons/react/24/outline";
 import { MetaHeader } from "~~/components/MetaHeader";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 import { useAccount } from "wagmi";
-import React, { useState, useEffect } from "react";
 import { NFTPicker } from "~~/components/spark";
+import React from "react";
+// import React, { useState, useEffect } from "react";
 // import { Engine } from "~~/engine";
+// import Link from "next/link";
+// import { BugAntIcon, MagnifyingGlassIcon, SparklesIcon } from "@heroicons/react/24/outline";
 
 const Home: NextPage = () => {
   const { address } = useAccount();
 
-  const { writeAsync: mintNPC } = useScaffoldContractWrite({
-    contractName: "NPCNFT",
-    functionName: "mintNPC",
-    args: [address],
-    onBlockConfirmation: txnReceipt => {
-      console.log("📦 Transaction blockHash", txnReceipt.blockHash);
-    },
-  });
+  // const { writeAsync: mintNPC } = useScaffoldContractWrite({
+  //   contractName: "NPCNFT",
+  //   functionName: "mintNPC",
+  //   args: [address],
+  //   onBlockConfirmation: txnReceipt => {
+  //     console.log("📦 Transaction blockHash", txnReceipt.blockHash);
+  //   },
+  // });
 
   // useEffect(() => {
   //   async function doLoad(): Promise<void> {

@@ -2,7 +2,7 @@ import { useAccountBalance } from "~~/hooks/scaffold-eth";
 import { getTargetNetwork } from "~~/utils/scaffold-eth";
 
 type TBalanceProps = {
-  address: string;
+  address?: string;
   className?: string;
 };
 
