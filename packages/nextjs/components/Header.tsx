@@ -90,8 +90,8 @@ export const Header = () => {
             <Image alt="SE2 logo" className="cursor-pointer rounded-xl" fill src="/logo.svg" />
           </div>
           <div className="flex flex-col">
-            <span className="font-bold leading-tight">The New Players Zine</span>
-            <span className="text-xs">On AI, Play, & Culture</span>
+            <span className="font-bold leading-tight">Spark</span>
+            <span className="text-xs">Chat with your NFTs</span>
           </div>
         </Link>
         <ul className="hidden lg:flex lg:flex-nowrap menu menu-horizontal px-1 gap-2">{navLinks}</ul>
