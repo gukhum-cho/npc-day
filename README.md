@@ -1,58 +1,80 @@
-# Tokenbound Account Contracts
+# ⚡Spark
 
-This repository contains an opinionated [ERC-6551](https://eips.ethereum.org/EIPS/eip-6551) account implementation. The smart contracts are written in Solidity using the [Foundry](https://book.getfoundry.sh/) development framework.
+<h4 align="center">
+  <a href="https://docs.scaffoldeth.io">Documentation</a> |
+  <a href="https://scaffoldeth.io">Website</a>
+</h4>
 
-**This project is under active development and may undergo changes until ERC-6551 is finalized.** For the most recently deployed version of these contracts, see the [v0.3.0](https://github.com/tokenbound/contracts/releases/tag/v0.3.0) release. We recommend this version for any production usage.
+🧪 An open-source, up-to-date toolkit for building decentralized applications (dapps) on the Ethereum blockchain. It's designed to make it easier for developers to create and deploy smart contracts and build user interfaces that interact with those contracts.
 
-## Contracts
+⚙️ Built using NextJS, RainbowKit, Hardhat, Wagmi, Viem, and Typescript.
 
-The `src/` directory contains the main contracts for the project:
+- ✅ **Contract Hot Reload**: Your frontend auto-adapts to your smart contract as you edit it.
+- 🪝 **[Custom hooks](https://docs.scaffoldeth.io/hooks/)**: Collection of React hooks wrapper around [wagmi](https://wagmi.sh/) to simplify interactions with smart contracts with typescript autocompletion.
+- 🧱 [**Components**](https://docs.scaffoldeth.io/components/): Collection of common web3 components to quickly build your frontend.
+- 🔥 **Burner Wallet & Local Faucet**: Quickly test your application with a burner wallet and local faucet.
+- 🔐 **Integration with Wallet Providers**: Connect to different wallet providers and interact with the Ethereum network.
 
-- `Account.sol`: This contract is the main ERC-6551 account implementation. It includes functionalities for executing a low-level call against an account if the caller is authorized to make calls, setting the implementation address for a given function call, granting a given caller execution permissions, locking the account until a certain timestamp, and more.
+![Debug Contracts tab](https://github.com/scaffold-eth/scaffold-eth-2/assets/55535804/1171422a-0ce4-4203-bcd4-d2d1941d198b)
 
-- `AccountGuardian.sol`: This contract manages upgrade and cross-chain execution settings for accounts. It includes functionalities for setting trusted implementations and executors.
+## Requirements
 
-- `AccountProxy.sol`: This contract is an ERC-1967 proxy which enables account upgradability. It includes functionalities for initializing and getting the implementation of the contract.
+Before you begin, you need to install the following tools:
 
-## Using as a Dependency
+- [Node (>= v18.17)](https://nodejs.org/en/download/)
+- Yarn ([v1](https://classic.yarnpkg.com/en/docs/install/) or [v2+](https://yarnpkg.com/getting-started/install))
+- [Git](https://git-scm.com/downloads)
 
-If you want to use `tokenbound/contracts` as a dependency in another project, you can add it using `forge install`:
+## Quickstart
 
-```sh
-forge install tokenbound=tokenbound/contracts
+To get started with Scaffold-ETH 2, follow the steps below:
+
+1. Clone this repo & install dependencies
+
+```
+git clone https://github.com/scaffold-eth/scaffold-eth-2.git
+cd scaffold-eth-2
+yarn install
 ```
 
-This will add `tokenbound/contracts` as a git submodule in your project. For more information on managing dependencies, refer to the [Foundry dependencies guide](https://github.com/foundry-rs/book/blob/master/src/projects/dependencies.md).
+2. Run a local network in the first terminal:
 
-## Development Setup
-
-You will need to have Foundry installed on your system. Please refer to the [Foundry installation guide](https://github.com/foundry-rs/book/blob/master/src/getting-started/installation.md) for detailed instructions.
-
-To use this repository, first clone it:
-
-```sh
-git clone https://github.com/tokenbound/contracts.git
-cd contracts
+```
+yarn chain
 ```
 
-Then, install the dependencies:
+This command starts a local Ethereum network using Hardhat. The network runs on your local machine and can be used for testing and development. You can customize the network configuration in `hardhat.config.ts`.
 
-```sh
-forge install
+3. On a second terminal, deploy the test contract:
+
+```
+yarn deploy
 ```
 
-This will install the submodule dependencies that are in the project.
+This command deploys a test smart contract to the local network. The contract is located in `packages/hardhat/contracts` and can be modified to suit your needs. The `yarn deploy` command uses the deploy script located in `packages/hardhat/deploy` to deploy the contract to the network. You can also customize the deploy script.
 
-## Running Tests
+4. On a third terminal, start your NextJS app:
 
-To run the tests, use the `forge test` command:
-
-```sh
-forge test
+```
+yarn start
 ```
 
-For more information on writing and running tests, refer to the [Foundry testing guide](https://github.com/foundry-rs/book/blob/master/src/forge/writing-tests.md).
+Visit your app on: `http://localhost:3000`. You can interact with your smart contract using the `Debug Contracts` page. You can tweak the app config in `packages/nextjs/scaffold.config.ts`.
 
-## Contributing
+Run smart contract test with `yarn hardhat:test`
 
-Contributions are welcome and appreciated! Please make sure to run the tests before submitting a pull request.
+- Edit your smart contract `YourContract.sol` in `packages/hardhat/contracts`
+- Edit your frontend in `packages/nextjs/pages`
+- Edit your deployment scripts in `packages/hardhat/deploy`
+
+## Documentation
+
+Visit our [docs](https://docs.scaffoldeth.io) to learn how to start building with Scaffold-ETH 2.
+
+To know more about its features, check out our [website](https://scaffoldeth.io).
+
+## Contributing to Scaffold-ETH 2
+
+We welcome contributions to Scaffold-ETH 2!
+
+Please see [CONTRIBUTING.MD](https://github.com/scaffold-eth/scaffold-eth-2/blob/main/CONTRIBUTING.md) for more information and guidelines for contributing to Scaffold-ETH 2.
