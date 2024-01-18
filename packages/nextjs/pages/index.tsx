@@ -3,7 +3,7 @@ import { MetaHeader } from "~~/components/MetaHeader";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 import { useAccount } from "wagmi";
 import { NFTPicker } from "~~/components/spark";
-import React from "react";
+import React, { useState } from "react";
 // import React, { useState, useEffect } from "react";
 // import { Engine } from "~~/engine";
 // import Link from "next/link";
@@ -11,6 +11,7 @@ import React from "react";
 
 const Home: NextPage = () => {
   const { address } = useAccount();
+  const [guestAccount, setGuestAccount] = useState<string | null>(null);
 
   // const { writeAsync: mintNPC } = useScaffoldContractWrite({
   //   contractName: "NPCNFT",
@@ -27,21 +28,40 @@ const Home: NextPage = () => {
   //   }
   //   doLoad();
   // }, []);  
+  const connectWithGuestAccount = () => {
+    
+    // use a guest account with NFTs
+    setGuestAccount("paulgadi.eth");
+  }
 
   return (
     <>
       <MetaHeader />
       <div className="flex items-center flex-col flex-grow">
 
-        <div className="px-5">
+        <div className="px-5 py-5">
         {
           address ? (
             <NFTPicker address={address}></NFTPicker>
 
           ) : (
-            <div>
-              Connect Wallet to see NFTs
-            </div>
+            guestAccount ? (
+              <NFTPicker address={guestAccount}></NFTPicker>
+
+            )
+            : (
+              <>
+              <div>
+                Connect Wallet to select one of your NFTs, or press the button below to use a guest wallet.
+              </div>
+              <div className="flex items-center flex-col flex-grow">                
+                <button className="btn btn-primary btn-sm mt-5" onClick={connectWithGuestAccount} type="button">
+                  USE GUEST WALLET
+                </button>                              
+              </div>
+              </>
+              
+            )
           )
 
         }
