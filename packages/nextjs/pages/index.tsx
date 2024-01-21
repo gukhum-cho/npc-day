@@ -1,17 +1,28 @@
+/* eslint-disable prettier/prettier */
 import type { NextPage } from "next";
 import { MetaHeader } from "~~/components/MetaHeader";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 import { useAccount } from "wagmi";
 import { NFTPicker } from "~~/components/spark";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useAddressStore,useSyncAddressWithStore } from "./../useAddressStore";
+import { useGuestStore } from "./../useGuestStore";
+
 // import React, { useState, useEffect } from "react";
 // import { Engine } from "~~/engine";
 // import Link from "next/link";
 // import { BugAntIcon, MagnifyingGlassIcon, SparklesIcon } from "@heroicons/react/24/outline";
 
 const Home: NextPage = () => {
-  const { address } = useAccount();
-  const [guestAccount, setGuestAccount] = useState<string | null>(null);
+  useSyncAddressWithStore(); //Syncs the account address with the store
+  const address = useAddressStore(state => state.address); 
+  const guestAccount = useGuestStore(state => state.guestAccount);
+  const connectWithGuestAccount = useGuestStore(state => state.connectWithGuestAccount);
+  
+  // const { address } = useAccount();
+  // const [guestAccount, setGuestAccount] = useState<string | null>(null);
+
+  
 
   // const { writeAsync: mintNPC } = useScaffoldContractWrite({
   //   contractName: "NPCNFT",
@@ -28,11 +39,7 @@ const Home: NextPage = () => {
   //   }
   //   doLoad();
   // }, []);  
-  const connectWithGuestAccount = () => {
-    
-    // use a guest account with NFTs
-    setGuestAccount("paulgadi.eth");
-  }
+  
 
   return (
     <>
