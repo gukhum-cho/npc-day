@@ -1,195 +1,75 @@
 /* eslint-disable prettier/prettier */
-import type { NextPage } from "next";
-import { MetaHeader } from "~~/components/MetaHeader";
-import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
-import { useAccount } from "wagmi";
-import { NFTPicker } from "~~/components/spark";
 import React, { useState, useEffect } from "react";
-import { useAddressStore,useSyncAddressWithStore } from "./../useAddressStore";
-import { useGuestStore } from "./../useGuestStore";
-
-// import React, { useState, useEffect } from "react";
-// import { Engine } from "~~/engine";
-// import Link from "next/link";
-// import { BugAntIcon, MagnifyingGlassIcon, SparklesIcon } from "@heroicons/react/24/outline";
+import type { NextPage } from "next";
+// Assets
+import BackgroundImage from './../public/assets/landing-background.png';
+// External Libraries
+import { useAccount } from "wagmi";
+// Local Hooks and Zustand Stores
+import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
+// import { useAccountNFTs } from "~~/hooks/spark"; uncomment if need to view loading state of nfts
+import { useAddressStore,useSyncAddressWithStore } from "~~/services/store/useAddressStore";
+import { useGuestStore } from "~~/services/store/useGuestStore";
+// Local Components
+import { MetaHeader } from "~~/components/MetaHeader";
+import { NFTPicker } from "~~/components/spark";
+import BackgroundImageWrapper from "~~/components/BackgroundImageWrapper";
 
 const Home: NextPage = () => {
   useSyncAddressWithStore(); //Syncs the account address with the store
   const address = useAddressStore(state => state.address); 
   const guestAccount = useGuestStore(state => state.guestAccount);
   const connectWithGuestAccount = useGuestStore(state => state.connectWithGuestAccount);
-  
-  // const { address } = useAccount();
-  // const [guestAccount, setGuestAccount] = useState<string | null>(null);
-
-  
-
-  // const { writeAsync: mintNPC } = useScaffoldContractWrite({
-  //   contractName: "NPCNFT",
-  //   functionName: "mintNPC",
-  //   args: [address],
-  //   onBlockConfirmation: txnReceipt => {
-  //     console.log("📦 Transaction blockHash", txnReceipt.blockHash);
-  //   },
-  // });
-
-  // useEffect(() => {
-  //   async function doLoad(): Promise<void> {
-  //     Engine.load("");
-  //   }
-  //   doLoad();
-  // }, []);  
-  
-
   return (
-    <>
+    <div style={{display:'flex', flexDirection:'column', flexGrow:1}}>
       <MetaHeader />
-      <div className="flex items-center flex-col flex-grow">
+      {/* This is a wrapper that has a background image and its children covered by a gradient to make it more readable.*/}
+      <BackgroundImageWrapper> 
+        {/* this is to align x-axis of the opaque container to the center  */}
+        <div className={"flex justify-center"}> 
+          <div className={`rounded-corner flex justify-center inset-0 bg-black bg-opacity-40 w-full sm:min-w-[300px] md:min-w-[440px] pl-6 min-h-[600px] ${(address || guestAccount) ? '':'max-w-[440px] '}`}>
+          {
+            address ? (
+              <NFTPicker address={address}></NFTPicker>
+            ) : (
+              guestAccount ? (
+                <NFTPicker address={guestAccount}></NFTPicker>
 
-        <div className="px-5 py-5">
-        {
-          address ? (
-            <NFTPicker address={address}></NFTPicker>
-
-          ) : (
-            guestAccount ? (
-              <NFTPicker address={guestAccount}></NFTPicker>
-
+              )
+              : (
+                // <div className="displayh-full" style={{padding:'15px',border:'1px solid red'}}>
+                  <div className="flex flex-col items-center flex-grow mt-[7rem] ">
+                    <div className="">
+                      <p className="text-lg font-bold text-center tracking-widest">
+                        Select A Wallet            
+                      </p>
+                    </div>
+                    <div className="flex flex-row items-center gap-2 mt-[3rem]">
+                      <button className="btn btn-primary btn-sm" onClick={useAccount} type="button">
+                        CONNECT WALLET
+                      </button>
+                    </div>
+                    <div className="flex flex-row items-center mt-[2rem]">
+                      <button className="btn btn-primary btn-sm" onClick={connectWithGuestAccount} type="button">
+                        USE GUEST WALLET
+                      </button>                     
+                    </div>
+                    {/* Padding right is below since this whole div has a slight padding left to center the overlay with the background image
+                        not padding right makes the overlay look off center
+                    */}
+                    <div className="flex justify-center mt-[3rem] pr-6">
+                      <p className="text-sm text-center w-full max-w-[300px]">
+                        Connect Wallet to select one of your NFTs, or if you dont have your own wallet you can try out our guest wallet.
+                      </p>
+                    </div>
+                  </div>
+              )
             )
-            : (
-              <>
-              <div>
-                Connect Wallet to select one of your NFTs, or press the button below to use a guest wallet.
-              </div>
-              <div className="flex items-center flex-col flex-grow">                
-                <button className="btn btn-primary btn-sm mt-5" onClick={connectWithGuestAccount} type="button">
-                  USE GUEST WALLET
-                </button>                              
-              </div>
-              </>
-              
-            )
-          )
-
-        }
-        </div>
-      
-      </div>
-
-      {/*
-
-      <div className="flex items-center flex-col flex-grow">
-        <div className="carousel rounded-box">
-          <div className="carousel-item">
-            <img src="https://daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.jpg" alt="Burger" />
-          </div> 
-          <div className="carousel-item">
-            <img src="https://daisyui.com/images/stock/photo-1565098772267-60af42b81ef2.jpg" alt="Burger" />
-          </div> 
-          <div className="carousel-item">
-            <img src="https://daisyui.com/images/stock/photo-1572635148818-ef6fd45eb394.jpg" alt="Burger" />
-          </div> 
-          <div className="carousel-item">
-            <img src="https://daisyui.com/images/stock/photo-1494253109108-2e30c049369b.jpg" alt="Burger" />
-          </div> 
-          <div className="carousel-item">
-            <img src="https://daisyui.com/images/stock/photo-1550258987-190a2d41a8ba.jpg" alt="Burger" />
-          </div> 
-          <div className="carousel-item">
-            <img src="https://daisyui.com/images/stock/photo-1559181567-c3190ca9959b.jpg" alt="Burger" />
-          </div> 
-          <div className="carousel-item">
-            <img src="https://daisyui.com/images/stock/photo-1601004890684-d8cbf643f5f2.jpg" alt="Burger" />
+          }
           </div>
         </div>      
-      </div>
-
-      */}
-
-      {/*
-      <div className="flex items-center flex-col flex-grow pt-10">
-        <div className="px-5">
-          <h1 className="text-center mb-8">
-            <span className="block text-2xl mb-2">Welcome to</span>
-            <span className="block text-4xl font-bold">Scaffold-ETH 2</span>
-          </h1>
-          <p className="text-center text-lg">
-            Get started by editing{" "}
-            <code className="italic bg-base-300 text-base font-bold max-w-full break-words break-all inline-block">
-              packages/nextjs/pages/index.tsx
-            </code>
-          </p>
-          <p className="text-center text-lg">
-            Edit your smart contract{" "}
-            <code className="italic bg-base-300 text-base font-bold max-w-full break-words break-all inline-block">
-              YourContract.sol
-            </code>{" "}
-            in{" "}
-            <code className="italic bg-base-300 text-base font-bold max-w-full break-words break-all inline-block">
-              packages/hardhat/contracts
-            </code>
-          </p>
-
-          <button
-            className="py-2 px-16 mb-10 mt-3 bg-green-500 rounded baseline hover:bg-green-300 disabled:opacity-50"
-            onClick={() => mintNPC()}
-          >
-            Mint NPC
-          </button>
-        
-        {/*
-          <h1 className="text-center mb-5">
-            <span className="block text-2xl mb-2">Buy a NFT</span>
-          </h1>
-
-          <Image className="ml-60" src="/assets/chef.png" width={80} height={80} alt="Chef" />
-
-          <button
-            className="py-2 px-16 mb-1 mt-6 ml-52 bg-green-500 rounded baseline hover:bg-green-300 disabled:opacity-50"
-            onClick={() => mintNFT()}
-          >
-            Buy
-          </button>
-
-        </div>
-
-        <div className="flex-grow bg-base-300 w-full mt-16 px-8 py-12">
-          <div className="flex justify-center items-center gap-12 flex-col sm:flex-row">
-            <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl">
-              <BugAntIcon className="h-8 w-8 fill-secondary" />
-              <p>
-                Tinker with your smart contract using the{" "}
-                <Link href="/debug" passHref className="link">
-                  Debug Contract
-                </Link>{" "}
-                tab.
-              </p>
-            </div>
-            <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl">
-              <SparklesIcon className="h-8 w-8 fill-secondary" />
-              <p>
-                Experiment with{" "}
-                <Link href="/example-ui" passHref className="link">
-                  Example UI
-                </Link>{" "}
-                to build your own UI.
-              </p>
-            </div>
-            <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl">
-              <MagnifyingGlassIcon className="h-8 w-8 fill-secondary" />
-              <p>
-                Explore your local transactions with the{" "}
-                <Link href="/blockexplorer" passHref className="link">
-                  Block Explorer
-                </Link>{" "}
-                tab.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      */}
-    </>
+      </BackgroundImageWrapper>
+    </div>
   );
 };
 

@@ -1,4 +1,4 @@
-import create from 'zustand';
+import {create} from 'zustand';
 import { useEffect } from 'react';
 import { useAccount } from "wagmi";
 // This store is used to manage the address of the current user

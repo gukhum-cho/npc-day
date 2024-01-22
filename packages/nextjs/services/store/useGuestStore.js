@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 // This store is responsible for managing the guest account state and functions
-import create from 'zustand';
+import {create} from 'zustand';
 
 export const useGuestStore = create(( set,get ) => ({
     // define your state and functions here

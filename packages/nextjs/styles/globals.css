@@ -30,3 +30,15 @@ p {
 .btn.btn-ghost {
   @apply shadow-none;
 }
+
+.header-gradient {
+  background: linear-gradient(180deg, #11172B 0%, rgba(16, 25, 58, 0.4) 100%);
+}
+
+.footer-gradient {
+  background: linear-gradient(to bottom, rgba(17, 23, 43, 0.5), #11172b);
+}
+
+.rounded-corner {
+  border-radius: 8px;
+}
