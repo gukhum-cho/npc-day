@@ -5,7 +5,7 @@ const contracts = {
       name: "localhost",
       contracts: {
         AccountGuardian: {
-          address: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+          address: "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
           abi: [
             {
               inputs: [
@@ -224,7 +224,7 @@ const contracts = {
           ],
         },
         AccountV3: {
-          address: "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+          address: "0x0165878A594ca255338adfa4d48449f69242Eb8F",
           abi: [
             {
               inputs: [
@@ -1240,7 +1240,7 @@ const contracts = {
           ],
         },
         Multicall3: {
-          address: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+          address: "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
           abi: [
             {
               inputs: [
@@ -1683,7 +1683,7 @@ const contracts = {
           ],
         },
         NPCNFT: {
-          address: "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+          address: "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
           abi: [
             {
               inputs: [],
@@ -2066,16 +2066,10 @@ const contracts = {
           ],
         },
         YourContract: {
-          address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+          address: "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
           abi: [
             {
-              inputs: [
-                {
-                  internalType: "address",
-                  name: "_owner",
-                  type: "address",
-                },
-              ],
+              inputs: [],
               stateMutability: "nonpayable",
               type: "constructor",
             },
@@ -2083,44 +2077,84 @@ const contracts = {
               anonymous: false,
               inputs: [
                 {
-                  indexed: true,
+                  indexed: false,
                   internalType: "address",
-                  name: "greetingSetter",
+                  name: "attacker",
                   type: "address",
                 },
                 {
                   indexed: false,
-                  internalType: "string",
-                  name: "newGreeting",
-                  type: "string",
-                },
-                {
-                  indexed: false,
-                  internalType: "bool",
-                  name: "premium",
-                  type: "bool",
+                  internalType: "uint256",
+                  name: "damageDealt",
+                  type: "uint256",
                 },
                 {
                   indexed: false,
                   internalType: "uint256",
-                  name: "value",
+                  name: "newHealth",
                   type: "uint256",
                 },
               ],
-              name: "GreetingChange",
+              name: "BossAttacked",
+              type: "event",
+            },
+            {
+              anonymous: false,
+              inputs: [
+                {
+                  indexed: false,
+                  internalType: "uint256",
+                  name: "newHealth",
+                  type: "uint256",
+                },
+              ],
+              name: "BossHealthReset",
               type: "event",
             },
             {
               inputs: [],
-              name: "greeting",
+              name: "bossHealth",
               outputs: [
                 {
-                  internalType: "string",
+                  internalType: "uint256",
                   name: "",
-                  type: "string",
+                  type: "uint256",
                 },
               ],
               stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "newOwner",
+                  type: "address",
+                },
+              ],
+              name: "changeOwner",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "checkBossHealth",
+              outputs: [
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "normalSlash",
+              outputs: [],
+              stateMutability: "nonpayable",
               type: "function",
             },
             {
@@ -2138,72 +2172,24 @@ const contracts = {
             },
             {
               inputs: [],
-              name: "premium",
-              outputs: [
-                {
-                  internalType: "bool",
-                  name: "",
-                  type: "bool",
-                },
-              ],
-              stateMutability: "view",
-              type: "function",
-            },
-            {
-              inputs: [
-                {
-                  internalType: "string",
-                  name: "_newGreeting",
-                  type: "string",
-                },
-              ],
-              name: "setGreeting",
-              outputs: [],
-              stateMutability: "payable",
-              type: "function",
-            },
-            {
-              inputs: [],
-              name: "totalCounter",
-              outputs: [
-                {
-                  internalType: "uint256",
-                  name: "",
-                  type: "uint256",
-                },
-              ],
-              stateMutability: "view",
-              type: "function",
-            },
-            {
-              inputs: [
-                {
-                  internalType: "address",
-                  name: "",
-                  type: "address",
-                },
-              ],
-              name: "userGreetingCounter",
-              outputs: [
-                {
-                  internalType: "uint256",
-                  name: "",
-                  type: "uint256",
-                },
-              ],
-              stateMutability: "view",
-              type: "function",
-            },
-            {
-              inputs: [],
-              name: "withdraw",
+              name: "quickSlash",
               outputs: [],
               stateMutability: "nonpayable",
               type: "function",
             },
             {
-              stateMutability: "payable",
-              type: "receive",
+              inputs: [],
+              name: "resetBossHealth",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "strongSlash",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
             },
           ],
         },

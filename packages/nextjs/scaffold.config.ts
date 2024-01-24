@@ -12,8 +12,8 @@ export type ScaffoldConfig = {
 
 const scaffoldConfig = {
   // The network where your DApp lives in
-  // targetNetwork: chains.hardhat,
-   targetNetwork: chains.mainnet,
+  targetNetwork: chains.hardhat,
+  //  targetNetwork: chains.mainnet,
   
   openAIApiKey: process.env.NEXT_PUBLIC_OPENAI_KEY || "",
 
